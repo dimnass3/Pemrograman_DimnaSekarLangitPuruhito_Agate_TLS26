@@ -1,8 +1,7 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-int main() {
+int main(){
     int N, K;
 
     cout << "Jumlah astronaut: ";
@@ -10,43 +9,45 @@ int main() {
 
     cout << "Nilai K: ";
     cin >> K;
+    cout << endl;
 
-    vector<int> astronaut;
-
-    for (int i = 1; i <= N; i++) {
-        astronaut.push_back(i);
+    int astronaut[100];
+    for (int i = 0; i < N; i++) {
+        astronaut[i] = i + 1;
     }
 
+    int jumlah = N;
     int posisi = 0;
 
-    cout << "\nUrutan eliminasi: ";
+    cout << "Urutan eliminasi: ";
 
-    while (astronaut.size() > 1) {
-
-        posisi = (posisi + K - 1) % astronaut.size();
+    while(jumlah > 1){
+        posisi = (posisi + K - 1) % jumlah;
 
         int tereliminasi = astronaut[posisi];
 
         cout << tereliminasi << " ";
 
-        astronaut.erase(astronaut.begin() + posisi);
-
-        if (tereliminasi % 2 == 0) {
-            K = K + 2;
+        for(int i = posisi; i < jumlah - 1; i++){
+            astronaut[i] = astronaut[i + 1];
         }
-        else {
+
+        jumlah--;
+
+        if(tereliminasi % 2 == 0){
+            K = K + 2;
+        }else{
             K = K - 1;
         }
 
-        if (K < 2) {
+        if(K < 2){
             K = 2;
         }
 
-        if (posisi >= astronaut.size()) {
+        if(posisi >= jumlah){
             posisi = 0;
         }
     }
-
     cout << "\nAstronaut terakhir: " << astronaut[0] << endl;
 
     return 0;
